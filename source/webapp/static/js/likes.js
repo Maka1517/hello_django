@@ -2,10 +2,12 @@ async function onLike(event) {
     event.preventDefault();
     let likeBtn = event.target;
     let url = likeBtn.href;
-
     try {
+        console.log(url);
         let response = await makeRequest(url, 'POST');
+
         let data = await response.text();
+
         console.log(data);
         const counter = likeBtn.parentElement.getElementsByClassName('counter')[0];
         counter.innerText = data;

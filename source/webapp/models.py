@@ -54,6 +54,10 @@ class Comment(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
     like_count = models.IntegerField(verbose_name='Счетчик лайков', default=0)
 
+    def liked_by(self, user):
+        likes = self.likes.filter(user=user)
+        return likes.count() > 0
+
     def __str__(self):
         return self.text[:20]
 
@@ -93,9 +97,7 @@ class CommentLike(models.Model):
     comment = models.ForeignKey('webapp.Comment', on_delete=models.CASCADE,
                                 related_name='likes', verbose_name='Статья')
 
-    def liked_by(self, user):
-        likes = self.likes.filter(user=user)
-        return likes.count() > 0
+
 
     def __str__(self):
         return f'{self.user.username} - {self.comment.text}'

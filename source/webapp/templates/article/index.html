@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
 
 {% block title %}Hello{% endblock %}
 
@@ -9,6 +8,4 @@
     {% include 'partial/article_list.html' with show_mass_delete=perms.webapp.delete_article %}
 {% endblock %}
 
-{% block scripts %}
-    <script type="application/javascript" src="{% static "js/likes.js" %}"></script>
-{% endblock %}
+
