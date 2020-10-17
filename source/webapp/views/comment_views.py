@@ -53,8 +53,9 @@ class CommentDeleteView(PermissionRequiredMixin, DeleteView):
         return reverse('webapp:article_view', kwargs={'pk': self.object.article.pk})
 
 
-class CommentLikeView(View):
-    def post(self,request,*args, **kwargs):
+
+class CommentLikeView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
         comment = get_object_or_404(Comment, pk=kwargs.get('pk'))
         like, created = CommentLike.objects.get_or_create(comment=comment,user=request.user)
         if created:
@@ -65,8 +66,8 @@ class CommentLikeView(View):
             return HttpResponseForbidden()
 
 
-class CommentUnLikeView(View):
-    def delete(self, request, *args, **kwargs):
+class CommentUnLikeView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
         comment = get_object_or_404(Comment, pk=kwargs.get('pk'))
         like = get_object_or_404(comment.likes, user=request.user)
         like.delete()

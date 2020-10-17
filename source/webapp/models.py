@@ -93,6 +93,10 @@ class CommentLike(models.Model):
     comment = models.ForeignKey('webapp.Comment', on_delete=models.CASCADE,
                                 related_name='likes', verbose_name='Статья')
 
+    def liked_by(self, user):
+        likes = self.likes.filter(user=user)
+        return likes.count() > 0
+
     def __str__(self):
         return f'{self.user.username} - {self.comment.text}'
 

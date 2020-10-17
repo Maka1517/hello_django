@@ -40,6 +40,11 @@
                 {% if perms.webapp.delete_comment or comment.author == request.user %}
                     <p><a href="{% url 'webapp:comment_delete' comment.pk %}">Delete</a></p>
                 {% endif %}
+                {{ comment.like_count }}
+                {% with comment|liked_by:user as liked %}
+                    <a {% if liked %}class="hidden"{% endif %} href="{% url 'webapp:comment_like' comment.pk %}">Like</a>
+                    <a {% if not liked %}class="hidden"{% endif %} href="{% url 'webapp:comment_unlike' comment.pk %}">Unlike</a>
+                {% endwith %}
             </div>
         {% empty %}
             <p>Нет комментариев</p>
