@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load likes %}
 
 {% block title %}View{% endblock %}
 
@@ -40,10 +41,10 @@
                 {% if perms.webapp.delete_comment or comment.author == request.user %}
                     <p><a href="{% url 'webapp:comment_delete' comment.pk %}">Delete</a></p>
                 {% endif %}
-                {{ comment.like_count }}
-                {% with comment|liked_by:user as liked %}
-                    <a {% if liked %}class="hidden"{% endif %} href="{% url 'webapp:comment_like' comment.pk %}">Like</a>
-                    <a {% if not liked %}class="hidden"{% endif %} href="{% url 'webapp:comment_unlike' comment.pk %}">Unlike</a>
+                <span class="counter">{{ comment.like_count }}</span>
+                {% with comment.likes as liked %}
+                    <a class="{% if liked %}hidden{% endif %} like" href="{% url 'webapp:comment_like' comment.pk %}">Like</a>
+                    <a class="{% if not liked %}hidden{% endif %} unlike" href="{% url 'webapp:comment_unlike' comment.pk %}">Unlike</a>
                 {% endwith %}
             </div>
         {% empty %}
