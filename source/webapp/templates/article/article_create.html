@@ -5,9 +5,7 @@
 
 {% block content %}
     <h1>Create Article</h1>
-
-    {% url "webapp:article_create" as action_url %}
-    {% include 'partial/form.html' with action_url=action_url form_method='post' form_id="article_create_form" %}
+    {% include 'partial/form.html' with  form_method='post' form_id="article_create_form" %}
 {% endblock %}
 
 {% block scripts %}

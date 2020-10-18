@@ -4,9 +4,10 @@ async function addArticle(event) {
         title: document.getElementById('id_title').value,
         text: document.getElementById('id_text').value
     });
+    console.log("csdcsdcsd");
     let data = await response.json();
-    console.log(data.pk);
-    window.location.href = `${BASE_URL}article/${data.pk}/`;
+    console.log(data);
+    window.location.href = `${BASE_URL}article/${data.id}/`;
 }
 
 
